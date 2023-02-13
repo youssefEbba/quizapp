@@ -1,7 +1,9 @@
-// ignore_for_file: file_names, unused_field
+// ignore_for_file: file_names, unused_field, prefer_const_constructors
 
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:quizz/pages/home.dart';
+import 'package:quizz/pages/login.dart';
 
 class RoundButton extends StatelessWidget {
   final String title;
@@ -69,7 +71,6 @@ class _EmailDeildWidgetState extends State<EmailDeildWidget> {
         ),
         keyboardType: TextInputType.emailAddress,
         autofillHints: const [AutofillHints.email],
-       
         validator: (email) => email != null && !EmailValidator.validate(email)
             ? "Entrer un  Email valide"
             : null,
@@ -95,6 +96,7 @@ class _PasswordDetailWidgetState extends State<PasswordDetailWidget> {
   Widget build(BuildContext context) => TextFormField(
         controller: widget.controller,
         autofocus: false,
+        obscureText: true,
         decoration: InputDecoration(
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
           hintText: "password",
@@ -111,4 +113,124 @@ class _PasswordDetailWidgetState extends State<PasswordDetailWidget> {
         }),
         onSaved: (value) => _password = value!,
       );
+}
+
+snackBar(BuildContext context) {
+  // ignore: unnecessary_const
+  const snackBar = SnackBar(
+    //backgroundColor: Colors.redAccent,
+    content: Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Text(
+        'Erreur ',
+      ),
+    ),
+  );
+
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+}
+
+Drawer drawer(BuildContext context, String? name, String? email) {
+  return Drawer(
+    width: 300,
+    child: ListView(children: [
+      Container(
+        height: 250,
+        color: Color.fromARGB(255, 60, 126, 239),
+        child: Column(
+          // ignore: prefer_const_literals_to_create_immutables
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: CircleAvatar(
+                radius: 100,
+                //   backgroundImage: AssetImage('quizz/assets/photo.jpg'),
+              ),
+            ),
+            Text(name!,
+                style: TextStyle(
+                    color: Color.fromARGB(255, 253, 251, 251), fontSize: 18)),
+            Divider(
+              height: 1,
+            ),
+            Text(email!,
+                style: TextStyle(
+                    color: Color.fromARGB(255, 255, 253, 253), fontSize: 14))
+          ],
+        ),
+      ),
+      ListTile(
+        onTap: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomeView()));
+        },
+        title: Row(
+          children: const [
+            Icon(
+              Icons.home,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                'Accueil',
+                style: TextStyle(fontSize: 18),
+              ),
+            )
+          ],
+        ),
+      ),
+      ListTile(
+        onTap: (() => Navigator.pop(context)),
+        title: Row(
+          // ignore: prefer_const_literals_to_create_immutables
+          children: [
+            const Icon(
+              Icons.question_answer_outlined,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: const Text(
+                'Vos Participations ',
+                style: TextStyle(fontSize: 18),
+              ),
+            )
+          ],
+        ),
+      ),
+      ListTile(
+        onTap: (() => Navigator.pop(context)),
+        title: Row(
+          children: const [
+            Icon(Icons.settings_applications),
+            Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                'Modifier votre profil',
+                style: TextStyle(fontSize: 18),
+              ),
+            )
+          ],
+        ),
+      ),
+      ListTile(
+        onTap: (() => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Login(),
+            ))),
+        title: Row(
+          children: const [
+            Icon(Icons.logout),
+            Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                'Deconnecter',
+                style: TextStyle(fontSize: 18),
+              ),
+            )
+          ],
+        ),
+      )
+    ]),
+  );
 }

@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:quizz/pages/quizz.dart';
+import 'package:quizz/provider/authe_pro.dart';
 
 import 'package:quizz/provider/quizprovider.dart';
+import 'package:quizz/utile/utill.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -25,8 +27,12 @@ class HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final quizmodel = Provider.of<Quiz>(context);
+    final user = Provider.of<AuthViewModel>(context);
     return Scaffold(
         appBar: AppBar(title: const Text('Quiz de soutien Scolaire')),
+        drawer: loading
+            ? drawer(context, user.userModel!.name, user.userModel?.email)
+            : null,
         body: Container(
             color: Colors.blueGrey[100],
             padding: EdgeInsets.only(top: 60, left: 20, right: 20),

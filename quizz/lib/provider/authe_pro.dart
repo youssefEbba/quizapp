@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:quizz/pages/login.dart';
+import 'package:quizz/utile/Utill.dart';
 
 import '../models/user.dart';
 import '../pages/home.dart';
@@ -29,14 +30,9 @@ class AuthViewModel extends ChangeNotifier {
     if (response['token'] == null) {
       _myRepo.loginApi(data).then((value) {
         setLoading(false);
-        print('Login Error');
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const Login()),
-        );
+        snackBar(context);
       });
     } else {
-      userModel = UserModel.fromJson(response);
       _myRepo.loginApi(data).then((value) {
         setLoading(false);
 
@@ -44,6 +40,7 @@ class AuthViewModel extends ChangeNotifier {
           context,
           MaterialPageRoute(builder: (context) => const HomeView()),
         );
+        userModel = UserModel.fromJson(response);
       }).onError((error, stackTrace) {});
     }
   }
@@ -54,9 +51,7 @@ class AuthViewModel extends ChangeNotifier {
       setLoading(false);
 
       Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const Login()),
-      );
+          context, MaterialPageRoute(builder: (context) => const Login()));
     }).onError((error, stackTrace) {
       setLoading(false);
     });

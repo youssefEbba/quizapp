@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:quizz/pages/login.dart';
 
 import '../provider/authe_pro.dart';
-import '../utile/Utill.dart';
+import '../utile/utill.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);

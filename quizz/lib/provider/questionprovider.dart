@@ -1,13 +1,18 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:quizz/services/questionservices.dart';
 
 class QuestionProvider extends ChangeNotifier {
   dynamic questions = [];
-  int indexquestion = 0;
+  int _indexquestion = 0;
   bool loading = false;
+  int get indexquestion => _indexquestion;
+  setIndexquestion(int val) {
+    _indexquestion = val;
+    notifyListeners();
+  }
 
-  final PageController controller = PageController();
+  PageController controller = PageController();
+
   void nextPage() async {
     await controller.nextPage(
       duration: const Duration(milliseconds: 500),
@@ -15,6 +20,7 @@ class QuestionProvider extends ChangeNotifier {
     );
   }
 
+ 
 
   QuestionRepo questionRepo = QuestionRepo();
   getQuiz(String quiz) async {
@@ -23,7 +29,4 @@ class QuestionProvider extends ChangeNotifier {
     loading = false;
     notifyListeners();
   }
-  
-
-
 }
