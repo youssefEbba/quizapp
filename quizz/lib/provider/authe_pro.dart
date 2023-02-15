@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:quizz/pages/login.dart';
 import 'package:quizz/utile/Utill.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/user.dart';
 import '../pages/home.dart';
@@ -34,8 +35,7 @@ class AuthViewModel extends ChangeNotifier {
       });
     } else {
       _myRepo.loginApi(data).then((value) {
-        setLoading(false);
-
+        setLoading(true);
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const HomeView()),
@@ -43,6 +43,14 @@ class AuthViewModel extends ChangeNotifier {
         userModel = UserModel.fromJson(response);
       }).onError((error, stackTrace) {});
     }
+  }
+
+  Future<void> logout() async {
+    userModel = null;
+    setLoading(false);
+    notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    prefs.clear();
   }
 
   Future<void> registerApi(dynamic data, BuildContext context) async {

@@ -12,6 +12,7 @@ import 'package:quizz/pages/score.dart';
 import '../provider/authe_pro.dart';
 import '../provider/questionprovider.dart';
 import '../provider/quizprovider.dart';
+import '../utile/Utill.dart';
 
 class Quizz extends StatefulWidget {
   const Quizz(this.quiz, this.time, {Key? key}) : super(key: key);
@@ -43,7 +44,7 @@ class _QuizzState extends State<Quizz> with TickerProviderStateMixin {
     void nextPage() async {
       await controller.nextPage(
         duration: const Duration(milliseconds: 500),
-        curve: Curves.easeOut,
+        curve: Curves.easeOutQuart,
       );
     }
 
@@ -73,6 +74,7 @@ class _QuizzState extends State<Quizz> with TickerProviderStateMixin {
         color: Colors.blueGrey[100],
         padding: EdgeInsets.only(top: 50),
         child: PageView.builder(
+            physics: NeverScrollableScrollPhysics(),
             pageSnapping: false,
             controller: controller,
             scrollDirection: Axis.horizontal,

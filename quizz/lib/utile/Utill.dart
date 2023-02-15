@@ -1,9 +1,19 @@
 // ignore_for_file: file_names, unused_field, prefer_const_constructors
 
+import 'dart:convert';
+
+import 'package:http/http.dart';
+
+import 'package:http/http.dart' as http;
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quizz/pages/home.dart';
 import 'package:quizz/pages/login.dart';
+import 'package:quizz/utile/urlsapi.dart';
+
+import '../provider/authe_pro.dart';
 
 class RoundButton extends StatelessWidget {
   final String title;
@@ -122,7 +132,7 @@ snackBar(BuildContext context) {
     content: Padding(
       padding: EdgeInsets.all(8.0),
       child: Text(
-        'Erreur ',
+        'Erreur dans votre Login ',
       ),
     ),
   );
@@ -141,7 +151,7 @@ Drawer drawer(BuildContext context, String? name, String? email) {
           // ignore: prefer_const_literals_to_create_immutables
           children: [
             const Padding(
-              padding: EdgeInsets.only(top: 10),
+              padding: EdgeInsets.only(top: 2),
               child: CircleAvatar(
                 radius: 100,
                 //   backgroundImage: AssetImage('quizz/assets/photo.jpg'),
@@ -213,11 +223,15 @@ Drawer drawer(BuildContext context, String? name, String? email) {
         ),
       ),
       ListTile(
-        onTap: (() => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Login(),
-            ))),
+        onTap: (() {
+          final user = Provider.of<AuthViewModel>(context, listen: false);
+          user.logout();
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Login(),
+              ));
+        }),
         title: Row(
           children: const [
             Icon(Icons.logout),
@@ -234,3 +248,17 @@ Drawer drawer(BuildContext context, String? name, String? email) {
     ]),
   );
 }
+
+// bool testConnect() {
+//   bool joinable = false;
+//   Future tes(bool jon) async {
+//     Response response = await http.get(Uri.parse(AppUrl.baseUrl));
+//     if (response.statusCode == 200) {
+//       jon = true;
+//     }
+//     print('tes');
+//   }
+
+//   tes(joinable);
+//   return joinable;
+

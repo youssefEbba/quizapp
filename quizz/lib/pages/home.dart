@@ -31,7 +31,10 @@ class HomeViewState extends State<HomeView> {
     return Scaffold(
         appBar: AppBar(title: const Text('Quiz de soutien Scolaire')),
         drawer: loading
-            ? drawer(context, user.userModel!.name, user.userModel?.email)
+            ? drawer(
+                context,
+                user.userModel == null ? '' : user.userModel?.name,
+                user.userModel == null ? '' : user.userModel?.email)
             : null,
         body: Container(
             color: Colors.blueGrey[100],

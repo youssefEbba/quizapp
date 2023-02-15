@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
+import 'package:quizz/pages/exeption.dart';
 import '../provider/authe_pro.dart';
 import '../utile/utill.dart';
 import 'register.dart';
@@ -15,6 +16,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -31,6 +33,7 @@ class _LoginState extends State<Login> {
       passwordController.dispose();
     }
 
+    
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -84,7 +87,9 @@ class _LoginState extends State<Login> {
                                 "username": email,
                                 "password": passwordController.text
                               };
+
                               authViewModel.loginApi(data, context);
+
                               //print("api ");
                             }
                           }),

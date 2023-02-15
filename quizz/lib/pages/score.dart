@@ -38,6 +38,7 @@ class _ScoreState extends State<Score> {
     final questionmodel = Provider.of<QuestionProvider>(context, listen: true);
     final usermodel = Provider.of<AuthViewModel>(context, listen: true);
     double resultat = widget.score / questionmodel.questions.length;
+
     resultat = resultat * 100;
     String pourcent = resultat.toStringAsFixed(2);
 
@@ -54,13 +55,13 @@ class _ScoreState extends State<Score> {
           child: Column(
             children: [
               Text(
-                resultat > 0.5
+                resultat > 50
                     ? 'Bravo '
                         '${usermodel.userModel!.name} votre score est \ : $pourcent% '
                     : '${usermodel.userModel!.name} votre score est \ : $pourcent% ',
                 style: TextStyle(
                     fontSize: 40,
-                    color: resultat > 0.5 ? Colors.green : Colors.redAccent),
+                    color: resultat > 50 ? Colors.green : Colors.redAccent),
               ),
               ElevatedButton(
                   onPressed: (() => Navigator.push(
