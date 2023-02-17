@@ -13,6 +13,7 @@ import '../provider/authe_pro.dart';
 import '../provider/questionprovider.dart';
 import '../provider/quizprovider.dart';
 import '../utile/Utill.dart';
+import 'home.dart';
 
 class Quizz extends StatefulWidget {
   const Quizz(this.quiz, this.time, {Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class Quizz extends StatefulWidget {
   State<Quizz> createState() => _QuizzState();
 }
 
-class _QuizzState extends State<Quizz> with TickerProviderStateMixin {
+class _QuizzState extends State<Quizz> {
   @override
   void initState() {
     super.initState();
@@ -53,8 +54,12 @@ class _QuizzState extends State<Quizz> with TickerProviderStateMixin {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    Score(quiz, score, user.userModel!.id.toString())));
+                builder: (context) => Score(
+                    quiz,
+                    score,
+                    user.userModel == null
+                        ? ''
+                        : user.userModel!.id.toString())));
       } else {
         i = i + 1;
         nextPage();
@@ -63,6 +68,7 @@ class _QuizzState extends State<Quizz> with TickerProviderStateMixin {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -87,9 +93,12 @@ class _QuizzState extends State<Quizz> with TickerProviderStateMixin {
                 children: [
                   CountdownTimer(endTime: endTime, onEnd: () {}),
                   Text('${index + 1}/${questionmodel.questions.length}'),
-                  Text(
-                    questionmodel.questions[index]['question'],
-                    style: const TextStyle(fontSize: 40),
+                  SizedBox(
+                    height: 200,
+                    child: Text(
+                      questionmodel.questions[index]['question'],
+                      style: const TextStyle(fontSize: 30),
+                    ),
                   ),
                   const SizedBox(
                     height: 10,
@@ -150,7 +159,19 @@ class _QuizzState extends State<Quizz> with TickerProviderStateMixin {
                           child: Text(questionmodel.questions[index]['choix3'],
                               style: TextStyle(color: Colors.white)),
                         ),
-                      ))
+                      )),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 100),
+                    child: ElevatedButton.icon(
+                        onPressed: () => Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeView())),
+                        icon: Icon(
+                          Icons.reply,
+                        ),
+                        label: Text('Annuler')),
+                  )
                 ],
               );
             })),

@@ -1,17 +1,10 @@
 // ignore_for_file: file_names, unused_field, prefer_const_constructors
 
-import 'dart:convert';
-
-import 'package:http/http.dart';
-
-import 'package:http/http.dart' as http;
-
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quizz/pages/home.dart';
 import 'package:quizz/pages/login.dart';
-import 'package:quizz/utile/urlsapi.dart';
 
 import '../provider/authe_pro.dart';
 

@@ -3,14 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:quizz/pages/login.dart';
 import 'package:quizz/utile/Utill.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 import '../models/user.dart';
 import '../pages/home.dart';
-import '../pages/score.dart';
+
 import '../services/auth.dart';
 import '../services/networkservices.dart';
 import '../utile/urlsapi.dart';
+import 'UserViewModel.dart';
 
 class AuthViewModel extends ChangeNotifier {
   final _myRepo = AuthRepository();
@@ -23,6 +24,7 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  UserViewModel user = UserViewModel();
   final BaseApiService apiServices = NetworkApiService();
   Future<void> loginApi(dynamic data, BuildContext context) async {
     setLoading(true);
@@ -36,11 +38,13 @@ class AuthViewModel extends ChangeNotifier {
     } else {
       _myRepo.loginApi(data).then((value) {
         setLoading(true);
-        Navigator.push(
+
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const HomeView()),
         );
         userModel = UserModel.fromJson(response);
+        user.saveUser(userModel!);
       }).onError((error, stackTrace) {});
     }
   }
@@ -49,8 +53,7 @@ class AuthViewModel extends ChangeNotifier {
     userModel = null;
     setLoading(false);
     notifyListeners();
-    final prefs = await SharedPreferences.getInstance();
-    prefs.clear();
+    user.remove(true);
   }
 
   Future<void> registerApi(dynamic data, BuildContext context) async {

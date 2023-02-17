@@ -59,7 +59,7 @@ class _RegisterState extends State<Register> {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20)),
                   hintText: "Nom",
-                  prefixIcon: const Icon(Icons.mail),
+                  prefixIcon: const Icon(Icons.person),
                 ),
               ),
               const SizedBox(
@@ -116,6 +116,3 @@ class _RegisterState extends State<Register> {
     );
   }
 }
-
-
-
