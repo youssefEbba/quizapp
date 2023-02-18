@@ -15,6 +15,7 @@ class Score extends StatefulWidget {
   final String quiz;
   final int score;
   final String user;
+ 
   @override
   State<Score> createState() => _ScoreState();
 }

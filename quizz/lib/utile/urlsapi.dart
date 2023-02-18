@@ -6,4 +6,5 @@ class AppUrl {
   static const String quizs = "${baseUrl}quizs/?categorie=";
   static const String questions = "${baseUrl}questions/?quiz=";
   static const String participation = "${baseUrl}particpations/";
+  static const String partiuser = "${baseUrl}particpations/?user=";
 }

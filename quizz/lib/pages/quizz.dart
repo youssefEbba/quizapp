@@ -7,6 +7,7 @@ import 'package:flutter_countdown_timer/countdown_controller.dart';
 import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
 import 'package:quizz/pages/score.dart';
 
 import '../provider/authe_pro.dart';
@@ -66,115 +67,120 @@ class _QuizzState extends State<Quizz> {
       }
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(widget.quiz),
-          ],
+    return SingleChildScrollView(
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(widget.quiz),
+            ],
+          ),
         ),
-      ),
-      body: Container(
-        color: Colors.blueGrey[100],
-        padding: EdgeInsets.only(top: 50),
-        child: PageView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            pageSnapping: false,
-            controller: controller,
-            scrollDirection: Axis.horizontal,
-            itemCount: questionmodel.questions.length,
-            itemBuilder: ((context, index) {
-              String response = questionmodel.questions[index]['reponse'];
-              String quiz = questionmodel.questions[index]['quiz'];
+        body: Container(
+          color: Colors.blueGrey[100],
+          padding: EdgeInsets.only(top: 50),
+          child: PageView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              pageSnapping: false,
+              controller: controller,
+              scrollDirection: Axis.horizontal,
+              itemCount: questionmodel.questions.length,
+              itemBuilder: ((context, index) {
+                String response = questionmodel.questions[index]['reponse'];
+                String quiz = questionmodel.questions[index]['quiz'];
 
-              return Column(
-                children: [
-                  CountdownTimer(endTime: endTime, onEnd: () {}),
-                  Text('${index + 1}/${questionmodel.questions.length}'),
-                  SizedBox(
-                    height: 200,
-                    child: Text(
-                      questionmodel.questions[index]['question'],
-                      style: const TextStyle(fontSize: 30),
+                return Column(
+                  children: [
+                    CountdownTimer(endTime: endTime, onEnd: () {}),
+                    Text('${index + 1}/${questionmodel.questions.length}'),
+                    SizedBox(
+                      height: 200,
+                      child: Text(
+                        questionmodel.questions[index]['question'],
+                        style: const TextStyle(fontSize: 30),
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        if (questionmodel.questions[index]['choix1'] ==
-                            response) score++;
-                        pagging(quiz);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.blue),
-                        width: 300,
-                        height: 50,
-                        child: Center(
-                          child: Text(questionmodel.questions[index]['choix1'],
-                              style: TextStyle(color: Colors.white)),
-                        ),
-                      )),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        if (questionmodel.questions[index]['choix2'] ==
-                            response) score++;
-                        pagging(questionmodel.questions[index]['quiz']);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.blue),
-                        width: 300,
-                        height: 50,
-                        child: Center(
-                          child: Text(questionmodel.questions[index]['choix2'],
-                              style: TextStyle(color: Colors.white)),
-                        ),
-                      )),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        if (questionmodel.questions[index]['choix3'] ==
-                            response) score++;
-                        pagging(questionmodel.questions[index]['quiz']);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.blue),
-                        width: 300,
-                        height: 50,
-                        child: Center(
-                          child: Text(questionmodel.questions[index]['choix3'],
-                              style: TextStyle(color: Colors.white)),
-                        ),
-                      )),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 100),
-                    child: ElevatedButton.icon(
-                        onPressed: () => Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeView())),
-                        icon: Icon(
-                          Icons.reply,
-                        ),
-                        label: Text('Annuler')),
-                  )
-                ],
-              );
-            })),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          if (questionmodel.questions[index]['choix1'] ==
+                              response) score++;
+                          pagging(quiz);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.blue),
+                          width: 300,
+                          height: 50,
+                          child: Center(
+                            child: Text(
+                                questionmodel.questions[index]['choix1'],
+                                style: TextStyle(color: Colors.white)),
+                          ),
+                        )),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          if (questionmodel.questions[index]['choix2'] ==
+                              response) score++;
+                          pagging(questionmodel.questions[index]['quiz']);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.blue),
+                          width: 300,
+                          height: 50,
+                          child: Center(
+                            child: Text(
+                                questionmodel.questions[index]['choix2'],
+                                style: TextStyle(color: Colors.white)),
+                          ),
+                        )),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          if (questionmodel.questions[index]['choix3'] ==
+                              response) score++;
+                          pagging(questionmodel.questions[index]['quiz']);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.blue),
+                          width: 300,
+                          height: 50,
+                          child: Center(
+                            child: Text(
+                                questionmodel.questions[index]['choix3'],
+                                style: TextStyle(color: Colors.white)),
+                          ),
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 100),
+                      child: ElevatedButton.icon(
+                          onPressed: () => Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeView())),
+                          icon: Icon(
+                            Icons.reply,
+                          ),
+                          label: Text('Annuler')),
+                    )
+                  ],
+                );
+              })),
+        ),
       ),
     );
   }

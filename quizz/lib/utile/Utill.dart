@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quizz/pages/home.dart';
 import 'package:quizz/pages/login.dart';
-
+import '../pages/participations.dart';
 import '../provider/authe_pro.dart';
 
 class RoundButton extends StatelessWidget {
@@ -183,7 +183,11 @@ Drawer drawer(BuildContext context, String? name, String? email) {
         ),
       ),
       ListTile(
-        onTap: (() => Navigator.pop(context)),
+        onTap: (() => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Particpation(),
+            ))),
         title: Row(
           // ignore: prefer_const_literals_to_create_immutables
           children: [

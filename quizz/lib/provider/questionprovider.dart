@@ -11,16 +11,14 @@ class QuestionProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  PageController controller = PageController();
+  // PageController controller = PageController();
 
-  void nextPage() async {
-    await controller.nextPage(
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.easeOut,
-    );
-  }
-
- 
+  // void nextPage() async {
+  //   await controller.nextPage(
+  //     duration: const Duration(milliseconds: 500),
+  //     curve: Curves.easeOut,
+  //   );
+  // }
 
   QuestionRepo questionRepo = QuestionRepo();
   getQuiz(String quiz) async {
